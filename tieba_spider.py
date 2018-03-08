@@ -267,8 +267,6 @@ if __name__ == '__main__':
     parser.add_argument('--no_small_file', help='不输出小文件', action='store_true')
     parser.add_argument('--no_nondedu_file', help='不输出未去重大文件', action='store_true')
     parser.add_argument('--no_dedu_file', help='不输出去重后的大文件', action='store_true')
-    parser.add_argument('--log', help='Log文件路径(默认为当前文件夹下的tieba_spider_log.txt',
-                        type=str, default='tieba_spider_log.txt')
     parser.add_argument('--log', help='输出log到文件，否则输出到控制台', action='store_true')
     args = parser.parse_args()
 

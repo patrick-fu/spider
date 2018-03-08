@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup
 from utils import *
 
 # 多进程的锁
-m_lock = multiprocessing.Lock
+m_lock = multiprocessing.Lock()
 
 
 def get_content(html):
