@@ -47,7 +47,7 @@ def get_content(html):
         else:
             return ''
     except Exception as e:
-        logging.warning('Get content: {}'.format(e))
+        logging.error('Get content: {}'.format(e))
         return ''
 
 
@@ -61,7 +61,7 @@ def get_all_links(html):
             links.append(i)
         return links
     except Exception as e:
-        logging.warning('Get all links: {}'.format(e))
+        logging.error('Get all links: {}'.format(e))
         return []
 
 
@@ -99,7 +99,7 @@ class Spider(object):
                         line = line.strip()
                         self.crawled_links_list.append(line)
         except Exception as e:
-            logging.warning('Load links to crawled list: {}'.format(e))
+            logging.error('Load links to crawled list: {}'.format(e))
 
         try:
             if os.path.exists(self.links_base_file):
@@ -110,11 +110,11 @@ class Spider(object):
                             if line not in self.link_queue:
                                 self.link_queue.append(line)
         except Exception as e:
-            logging.warning('Load links to Queue: {}'.format(e))
+            logging.error('Load links to Queue: {}'.format(e))
 
         if not self.link_queue:
             self.link_queue.append(self.seed_url)
-        logging.info("Load links success")
+        logging.warning("Load links success")
 
     def save_content(self, html):
         # 保存正文文本到 ./output_file
@@ -126,7 +126,7 @@ class Spider(object):
                 return True
             return False
         except Exception as e:
-            logging.warning('Save content: {}'.format(e))
+            logging.error('Save content: {}'.format(e))
             return False
 
     def save_crawled_links(self, link):
@@ -135,7 +135,7 @@ class Spider(object):
             with open(self.crawled_link_file, 'a') as fw:
                 fw.write(link + '\n')
         except Exception as e:
-            logging.warning('Save crawled link：{}'.format(e))
+            logging.error('Save crawled link：{}'.format(e))
 
     def save_all_links(self, html):
         # 获取页面所有匹配的link并保存到 ./links_base_file
@@ -152,7 +152,7 @@ class Spider(object):
                             fw.write(link + '\n')
             return True
         except Exception as e:
-            logging.warning('Save all links：{}'.format(e))
+            logging.error('Save all links：{}'.format(e))
             return False
 
     def is_special_pattern_url(self, url):
@@ -183,7 +183,7 @@ class Spider(object):
                 check_save_all_links = self.save_all_links(html)
 
                 if check_save_content and check_save_all_links:
-                    logging.info('ok: {}'.format(url))
+                    logging.warning('ok: {}'.format(url))
                 else:
                     continue
             except Exception as e:
